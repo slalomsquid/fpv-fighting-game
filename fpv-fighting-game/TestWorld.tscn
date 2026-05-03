@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://hyuj8spsv1to"]
+
+[ext_resource type="PackedScene" uid="uid://dt3f7le6k3xrx" path="res://Player.tscn" id="139_p1cy5"]
+
+[sub_resource type="GDScript" id="GDScript_p1cy5"]
+script/source = "extends Node3D
+
+@onready var player = $Player
+@onready var floor_mesh = $MeshInstance3D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_player_click(global_pos: Vector3, body: Node3D) -> void:
+	pass
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7c1qw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_i7llj"]
+sky_material = SubResource("ProceduralSkyMaterial_7c1qw")
+
+[sub_resource type="Environment" id="Environment_74u7v"]
+background_mode = 2
+sky = SubResource("Sky_i7llj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7c1qw"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_i7llj"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7c1qw"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_74u7v"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="World" type="Node3D" unique_id=1185146474]
+script = SubResource("GDScript_p1cy5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1405209865]
+environment = SubResource("Environment_74u7v")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=463332389]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=2044724646 instance=ExtResource("139_p1cy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.229032)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1301152464]
+mesh = SubResource("PlaneMesh_7c1qw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=2038595674]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1480455661]
+shape = SubResource("ConcavePolygonShape3D_i7llj")
+
+[node name="Box" type="MeshInstance3D" parent="." unique_id=954958324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.734, 0.5, 0)
+mesh = SubResource("BoxMesh_7c1qw")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box" unique_id=737087318]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D" unique_id=664603185]
+shape = SubResource("ConcavePolygonShape3D_74u7v")
