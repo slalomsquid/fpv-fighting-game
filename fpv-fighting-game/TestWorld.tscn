@@ -164,6 +164,7 @@
 [ext_resource type="Texture2D" uid="uid://6rjcmk5w6spm" path="res://3rdIdle/0042.png" id="181_4pl8y"]
 [ext_resource type="Texture2D" uid="uid://c5f5p8e07eso0" path="res://Right_Idle/0060.png" id="181_bwra1"]
 [ext_resource type="Texture2D" uid="uid://c54mtq2vhegl7" path="res://3rdIdle/0043.png" id="182_3hs4i"]
+[ext_resource type="Script" uid="uid://d2odbptr8icwr" path="res://part.gd" id="182_hquba"]
 [ext_resource type="Texture2D" uid="uid://bqv78ynefq3nw" path="res://3rdIdle/0044.png" id="183_e1ftf"]
 [ext_resource type="Texture2D" uid="uid://3rqn5fv3oyih" path="res://3rdIdle/0045.png" id="184_1fatd"]
 [ext_resource type="Texture2D" uid="uid://b04riudsp134" path="res://3rdIdle/0046.png" id="185_ua27p"]
@@ -847,9 +848,12 @@ mesh = SubResource("SphereMesh_xhfnw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player2" unique_id=778345823]
 shape = SubResource("CapsuleShape3D_xhfnw")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player2" unique_id=1722602555]
+[node name="Front" type="AnimatedSprite3D" parent="Player2" unique_id=1722602555]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5, -0.5)
 sprite_frames = SubResource("SpriteFrames_y2ghy")
+script = ExtResource("182_hquba")
+max_angle = 45
+min_angle = -45
 
 [node name="Left" type="AnimatedSprite3D" parent="Player2" unique_id=108817746]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.5, 0.5, 0)
@@ -857,12 +861,18 @@ flip_h = true
 axis = 0
 sprite_frames = SubResource("SpriteFrames_co0sv")
 animation = &"new_animation"
+script = ExtResource("182_hquba")
+max_angle = -45
+min_angle = -180
 
-[node name="Left2" type="AnimatedSprite3D" parent="Player2" unique_id=104075974]
+[node name="Right" type="AnimatedSprite3D" parent="Player2" unique_id=104075974]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.5, 0.5, 0)
 axis = 0
 sprite_frames = SubResource("SpriteFrames_x1h5y")
 animation = &"new_animation"
+script = ExtResource("182_hquba")
+max_angle = 135
+min_angle = 45
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1301152464]
 mesh = SubResource("PlaneMesh_7c1qw")
